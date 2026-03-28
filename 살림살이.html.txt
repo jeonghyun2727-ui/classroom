@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ 빛나는 1반의 살림살이</title>
+<link rel="manifest" href="#" />
+<meta name="theme-color" content="#2C3E7A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="살림살이">
+<style>
+:root{
+  --gold:#FFD700;--dark-gold:#E6B800;--navy:#2C3E7A;--purple:#4A4A8A;--lpurple:#7B7BC0;
+  --green:#2E7D32;--lgreen:#E8F5E9;--red:#C62828;--lred:#FFEBEE;
+  --star:#FFF8DC;--lbg:#EEEEFF;--orange:#E65100;--gray:#F5F5F5;
+  --radius:12px;--shadow:0 4px 16px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nanum Gothic',Arial,sans-serif;background:#F0F2FF;min-height:100vh;color:#222}
+.hdr{background:linear-gradient(135deg,var(--navy),var(--purple));color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow)}
+.hdr-title{font-size:1.2rem;font-weight:700}.hdr-title span{color:var(--gold)}
+.hdr-r{display:flex;gap:7px}
+.hbtn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 13px;border-radius:18px;cursor:pointer;font-size:.83rem;transition:.2s}
+.hbtn:hover{background:rgba(255,255,255,.28)}
+.screen{display:none;animation:fi .3s ease}.screen.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.lw{max-width:420px;margin:56px auto;padding:0 14px}
+.lc{background:#fff;border-radius:var(--radius);padding:36px 32px;box-shadow:var(--shadow);text-align:center}
+.lstar{font-size:2.8rem;margin-bottom:10px}
+.ltitle{font-size:1.4rem;font-weight:700;color:var(--purple);margin-bottom:5px}
+.ltabs{display:flex;border-radius:8px;overflow:hidden;border:1px solid #ddd;margin-bottom:20px}
+.ltab{flex:1;padding:9px;border:none;cursor:pointer;font-weight:600;font-size:.88rem;background:#f8f8f8;color:#666;transition:.2s}
+.ltab.active{background:var(--purple);color:#fff}
+.fg{margin-bottom:14px;text-align:left}
+.fl{font-size:.83rem;font-weight:600;color:#555;margin-bottom:5px;display:block}
+.fi{width:100%;padding:11px 13px;border:2px solid #e0e0e0;border-radius:8px;font-size:.97rem;transition:.2s;outline:none}
+.fi:focus{border-color:var(--purple)}
+.btn{width:100%;padding:12px;border:none;border-radius:8px;font-size:.97rem;font-weight:700;cursor:pointer;transition:.2s}
+.btn-pu{background:linear-gradient(135deg,var(--purple),var(--lpurple));color:#fff}.btn-pu:hover{opacity:.9}
+.btn-go{background:linear-gradient(135deg,var(--gold),var(--dark-gold));color:var(--navy)}.btn-go:hover{opacity:.9}
+.err{color:var(--red);font-size:.83rem;margin-top:7px;text-align:center}
+.cont{max-width:980px;margin:0 auto;padding:20px 14px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px;margin-bottom:20px}
+.sc{background:#fff;border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);text-align:center}
+.sc .lb{font-size:.76rem;color:#888;font-weight:600;margin-bottom:4px}
+.sc .vl{font-size:1.35rem;font-weight:700}
+.cs{background:linear-gradient(135deg,var(--star),#fff);border:2px solid var(--gold)}.cs .vl{font-size:1.6rem;color:var(--orange)}
+.tabs{display:flex;gap:5px;margin-bottom:18px;flex-wrap:wrap}
+.tb{padding:7px 14px;border:2px solid var(--purple);border-radius:18px;cursor:pointer;font-weight:600;font-size:.85rem;background:#fff;color:var(--purple);transition:.2s}
+.tb.active,.tb:hover{background:var(--purple);color:#fff}
+.tc{display:none}.tc.active{display:block;animation:fi .2s ease}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.st{font-size:1rem;font-weight:700;color:var(--purple)}
+.tw{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px}
+table{width:100%;border-collapse:collapse}
+thead th{background:var(--purple);color:#fff;padding:10px 9px;font-size:.81rem;font-weight:600;text-align:center}
+tbody tr:nth-child(even){background:var(--star)}
+tbody tr:hover{background:var(--lbg)}
+tbody td{padding:8px 9px;font-size:.83rem;text-align:center;border-bottom:1px solid #f0f0f0}
+td.l{text-align:left}
+.txin{color:var(--green);font-weight:700}.txout{color:var(--red);font-weight:700}
+.fc{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:12px}
+.fsm{padding:9px 11px;border:2px solid #e0e0e0;border-radius:8px;font-size:.91rem;outline:none;transition:.2s;width:100%}
+.fsm:focus{border-color:var(--purple)}
+.bsm{padding:8px 14px;border:none;border-radius:8px;font-weight:600;font-size:.86rem;cursor:pointer;transition:.2s;white-space:nowrap}
+.bsm:hover{opacity:.85;transform:translateY(-1px)}
+.bpu{background:var(--purple);color:#fff}.bgr{background:var(--green);color:#fff}
+.bre{background:var(--red);color:#fff}.bor{background:var(--orange);color:#fff}
+.bgo{background:var(--gold);color:var(--navy)}.bgy{background:#e0e0e0;color:#555}
+.cl{max-height:320px;overflow-y:auto;border:1px solid #e0e0e0;border-radius:8px}
+.ci{display:flex;align-items:center;padding:9px 13px;border-bottom:1px solid #f0f0f0;gap:9px;cursor:pointer;transition:.15s}
+.ci:last-child{border-bottom:none}
+.ci:hover{background:var(--lbg)}
+.ci input[type=checkbox]{width:17px;height:17px;accent-color:var(--purple);cursor:pointer;flex-shrink:0}
+.ci.ck{background:var(--lgreen)}
+.cn{font-weight:600;flex:1}.cs2{font-size:.79rem;color:#888}.ca{font-weight:700;color:var(--green);font-size:.88rem}
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:11px;margin-bottom:18px}
+.mi{background:#fff;border-radius:var(--radius);padding:14px 10px;box-shadow:var(--shadow);text-align:center;cursor:pointer;transition:.2s;border:2px solid transparent;position:relative}
+.mi:hover{border-color:var(--purple);transform:translateY(-2px)}
+.mi.sold-out{opacity:.5;cursor:not-allowed}.mi.sold-out:hover{transform:none;border-color:transparent}
+.mi .mic{font-size:1.9rem;margin-bottom:6px}
+.mi .min{font-weight:700;font-size:.88rem;margin-bottom:3px}
+.mi .mip{color:var(--orange);font-weight:700;font-size:.97rem}
+.mi .mileft{position:absolute;top:6px;right:6px;font-size:.72rem;background:var(--lgreen);color:var(--green);padding:2px 6px;border-radius:8px;font-weight:700}
+.mi .mileft.low{background:#FFF3E0;color:var(--orange)}
+.mi .mileft.none{background:var(--lred);color:var(--red)}
+.tklist{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.tkc{background:#fff;border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;border-left:5px solid var(--purple)}
+.tkc.used{border-left-color:#ccc;opacity:.6}.tkc.store{border-left-color:var(--orange)}
+.tkico{font-size:1.8rem;flex-shrink:0}
+.tkinf{flex:1}.tknm{font-weight:700;font-size:.97rem}.tkmeta{font-size:.78rem;color:#888;margin-top:2px}
+.tkamt{font-weight:700;color:var(--orange);font-size:.97rem;flex-shrink:0}
+.tkubtn{background:var(--purple);color:#fff;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;font-size:.85rem;flex-shrink:0;transition:.2s}
+.tkubtn:hover{opacity:.85}
+.tkused{color:#aaa;font-size:.83rem;flex-shrink:0}
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:14px}
+.mo.open{display:flex}
+.md{background:#fff;border-radius:var(--radius);padding:26px;width:100%;max-width:450px;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.mdt{font-size:1.05rem;font-weight:700;color:var(--purple);margin-bottom:14px}
+.mdb{display:flex;gap:9px;margin-top:18px;justify-content:flex-end}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:11px 22px;border-radius:22px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;font-size:.91rem;max-width:88vw;text-align:center}
+.toast.show{opacity:1}.toast.err{background:var(--red)}.toast.ok{background:var(--green)}
+.infobox{background:var(--lbg);border-left:4px solid var(--purple);padding:10px 13px;border-radius:0 8px 8px 0;font-size:.84rem;color:var(--purple);margin-bottom:12px}
+.sel{padding:9px 11px;border:2px solid #e0e0e0;border-radius:8px;font-size:.91rem;outline:none;width:100%;background:#fff}
+.sel:focus{border-color:var(--purple)}
+.empty{text-align:center;padding:28px;color:#aaa;font-size:.88rem}
+.spin{display:inline-block;width:24px;height:24px;border:3px solid #ddd;border-top-color:var(--purple);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.loading{text-align:center;padding:32px;color:#888}
+@media(max-width:600px){
+  .hdr-title{font-size:.97rem}
+  .sg{grid-template-columns:repeat(2,1fr)}
+  thead th,tbody td{font-size:.75rem;padding:6px 4px}
+  .mg{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-title">✨ <span>빛나는 1반</span>의 살림살이</div>
+  <div class="hdr-r">
+    <button class="hbtn" id="changePwBtn" style="display:none" onclick="openChangePw()">🔒 비밀번호 변경</button>
+    <button class="hbtn" id="logoutBtn" style="display:none" onclick="logout()">로그아웃</button>
+  </div>
+</div>
+
+<!-- 로그인 -->
+<div class="screen active" id="screenLogin">
+  <div class="lw"><div class="lc">
+    <div class="lstar">⭐</div>
+    <div class="ltitle">빛나는 1반의 살림살이</div>
+    <div style="font-size:.85rem;color:var(--purple);font-weight:600;background:var(--lbg);border-radius:8px;padding:8px 12px;margin-bottom:14px;line-height:1.7">💜 배려 · 우정 · 재미 · 도전 · 공평의 가치를 지켜요!</div>
+    <div class="ltabs">
+      <button class="ltab active" onclick="switchLoginTab('student',this)">🎒 학생</button>
+      <button class="ltab" onclick="switchLoginTab('teacher',this)">👩‍🏫 선생님</button>
+    </div>
+    <div id="stuLoginForm">
+      <div class="fg"><label class="fl">번호</label><input class="fi" id="loginNum" type="number" min="1" max="40" placeholder="내 번호"></div>
+      <div class="fg"><label class="fl">비밀번호</label><input class="fi" id="loginPw" type="password" placeholder="비밀번호" onkeydown="if(event.key==='Enter')doStuLogin()"></div>
+      <button class="btn btn-go" onclick="doStuLogin()">⭐ 내 기록 보기</button>
+      <div class="err" id="loginErr"></div>
+    </div>
+    <div id="tchLoginForm" style="display:none">
+      <div class="fg"><label class="fl">선생님 비밀번호</label><input class="fi" id="teacherPw" type="password" placeholder="비밀번호" onkeydown="if(event.key==='Enter')doTchLogin()"></div>
+      <button class="btn btn-pu" onclick="doTchLogin()">👩‍🏫 관리 화면으로</button>
+      <div class="err" id="teacherErr"></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- 학생 화면 -->
+<div class="screen" id="screenStudent">
+  <div class="cont">
+    <div id="alertBanner" style="display:none;border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;font-size:1rem;font-weight:700;text-align:center;line-height:1.6;box-shadow:var(--shadow)"></div>
+    <div class="sg">
+      <div class="sc cs"><div class="lb">현재 잔액 ⭐</div><div class="vl" id="stu-bal">-</div><div style="font-size:.76rem;color:#888;margin-top:2px">별</div></div>
+      <div class="sc"><div class="lb">직업</div><div class="vl" style="font-size:.97rem;color:var(--purple)" id="stu-job">-</div></div>
+      <div class="sc"><div class="lb">주급</div><div class="vl" style="color:var(--orange)" id="stu-wk">-</div><div style="font-size:.76rem;color:#888">별/주</div></div>
+      <div class="sc"><div class="lb">총 받은 돈</div><div class="vl" style="color:var(--green)" id="stu-earn">-</div></div>
+      <div class="sc"><div class="lb">총 사용한 돈</div><div class="vl" style="color:var(--red)" id="stu-spent">-</div></div>
+    </div>
+    <div class="tabs">
+      <button class="tb active" onclick="switchStuTab('stLedger',this)">📒 내 거래 내역</button>
+      <button class="tb" onclick="switchStuTab('stStore',this)">🏪 매점</button>
+      <button class="tb" onclick="switchStuTab('stTicketShop',this)">🎟️ 이용권</button>
+      <button class="tb" onclick="switchStuTab('stMyTickets',this)">🎫 내 티켓</button>
+    </div>
+    <div class="tc active" id="stLedger">
+      <div class="tw"><table>
+        <thead><tr><th>날짜</th><th>유형</th><th>항목</th><th>받은 돈(+)</th><th>사용한 돈(-)</th><th>잔액</th></tr></thead>
+        <tbody id="stuTxTbl"><tr><td colspan="6" class="empty">거래 내역이 없어요</td></tr></tbody>
+      </table></div>
+    </div>
+    <div class="tc" id="stStore">
+      <div class="infobox">⭐ 구매하면 티켓이 생겨요! '내 티켓' 탭에서 확인 후 사용하세요.</div>
+      <div class="st" style="margin-bottom:10px">🏪 매점 메뉴</div>
+      <div class="mg" id="stuStoreMg"><div class="loading"><div class="spin"></div></div></div>
+    </div>
+    <div class="tc" id="stTicketShop">
+      <div class="infobox">⭐ 구매하면 티켓이 생겨요! '내 티켓' 탭에서 확인 후 사용하세요.</div>
+      <div class="st" style="margin-bottom:10px">🎟️ 이용권 목록</div>
+      <div class="mg" id="stuTicketMg"><div class="loading"><div class="spin"></div></div></div>
+      <div style="margin-top:20px">
+        <div class="sh" style="margin-bottom:10px">
+          <span class="st">🤝 함께해요 — 공동구매 이용권</span>
+          <button class="bsm bpu" onclick="loadGroupTickets()">🔄 새로고침</button>
+        </div>
+        <div class="infobox">반 친구들과 함께 모아서 이용권을 구매해요!</div>
+        <div id="gtList"><div class="loading"><div class="spin"></div></div></div>
+      </div>
+    </div>
+    <div class="tc" id="stMyTickets">
+      <div class="sh"><span class="st">🎫 내 티켓 목록</span><button class="bsm bpu" onclick="loadMyTickets()">🔄 새로고침</button></div>
+      <div id="myTicketList"><div class="loading"><div class="spin"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 선생님 화면 -->
+<div class="screen" id="screenTeacher">
+  <div class="cont">
+    <div class="tabs">
+      <button class="tb active" onclick="switchTab('tDash',this)">📊 전체 현황</button>
+      <button class="tb" onclick="switchTab('tWeekly',this)">💰 주급</button>
+      <button class="tb" onclick="switchTab('tBonus',this)">🌟 보너스</button>
+      <button class="tb" onclick="switchTab('tStore',this)">🏪 매점</button>
+      <button class="tb" onclick="switchTab('tTicket',this)">🎟️ 이용권</button>
+      <button class="tb" onclick="switchTab('tFine',this)">🚨 벌금</button>
+      <button class="tb" onclick="switchTab('tAllTk',this)">🎫 티켓 현황</button>
+      <button class="tb" onclick="switchTab('tTxLog',this)">📋 거래내역</button>
+      <button class="tb" onclick="switchTab('tStudents',this)">👥 학생관리</button>
+      <button class="tb" onclick="switchTab('tSettings',this)">⚙️ 설정</button>
+    </div>
+
+    <!-- 전체 현황 -->
+    <div class="tc active" id="tDash">
+      <div class="sh"><span class="st">📊 전체 잔액 현황</span><button class="bsm bpu" onclick="loadDash()">🔄 새로고침</button></div>
+      <div class="tw"><table>
+        <thead><tr><th>순위</th><th>번호</th><th>이름</th><th>직업</th><th>초기잔액</th><th>총 수입</th><th>총 지출</th><th>현재 잔액⭐</th></tr></thead>
+        <tbody id="dashTbl"><tr><td colspan="8" class="loading"><div class="spin"></div></td></tr></tbody>
+      </table></div>
+    </div>
+
+    <!-- 주급 -->
+    <div class="tc" id="tWeekly">
+      <div class="fc">
+        <div class="sh" style="margin-bottom:10px">
+          <span class="st">💰 주급 지급</span>
+        </div>
+        <div class="infobox">체크 후 지급 버튼을 누르세요.</div>
+        <div style="display:flex;gap:7px;margin-bottom:9px;flex-wrap:wrap">
+          <button class="bsm bpu" onclick="chkAll('wc',true)">전체 선택</button>
+          <button class="bsm bgy" onclick="chkAll('wc',false)">전체 해제</button>
+          <span id="wInfo" style="font-size:.84rem;color:#666;margin-left:5px"></span>
+        </div>
+        <div class="cl" id="wCL"></div>
+        <button class="bsm bgo" style="width:100%;padding:12px;font-size:.97rem;margin-top:12px" onclick="doWeeklyPay()">⭐ 선택 학생에게 주급 지급</button>
+      </div>
+    </div>
+
+    <!-- 보너스 -->
+    <div class="tc" id="tBonus">
+      <div class="fc">
+        <div class="st" style="margin-bottom:10px">🌟 개인 보너스 지급</div>
+        <div class="fgrid">
+          <div class="fg"><label class="fl">학생</label><select class="sel" id="bonusStu"></select></div>
+          <div class="fg"><label class="fl">항목</label><input class="fsm" id="bonusItem" placeholder="보너스 항목"></div>
+          <div class="fg"><label class="fl">자주 쓰는 항목</label><select class="sel" id="bonusPreset" onchange="applyPreset('bonusPreset','bonusItem','bonusAmt')"><option value="">-- 선택 --</option></select></div>
+          <div class="fg"><label class="fl">금액 (별)</label><input class="fsm" id="bonusAmt" type="number" min="1" placeholder="100"></div>
+          <div class="fg"><label class="fl">메모</label><input class="fsm" id="bonusMemo" placeholder="메모 (선택)"></div>
+        </div>
+        <button class="bsm bgr" style="width:100%;padding:11px" onclick="doBonus()">🌟 보너스 지급</button>
+      </div>
+      <div class="fc">
+        <div class="st" style="margin-bottom:10px">🌟 단체 보너스 지급</div>
+        <div class="fgrid">
+          <div class="fg"><label class="fl">항목</label><input class="fsm" id="bulkBonusItem" placeholder="보너스 항목"></div>
+          <div class="fg"><label class="fl">자주 쓰는 항목</label><select class="sel" id="bulkBonusPreset" onchange="applyPreset('bulkBonusPreset','bulkBonusItem','bulkBonusAmt')"><option value="">-- 선택 --</option></select></div>
+          <div class="fg"><label class="fl">금액 (별)</label><input class="fsm" id="bulkBonusAmt" type="number" min="1" placeholder="100"></div>
+        </div>
+        <div class="cl" id="bCL" style="margin-bottom:10px"></div>
+        <button class="bsm bgr" style="width:100%;padding:11px" onclick="doBulkBonus()">🌟 선택 학생 보너스 지급</button>
+      </div>
+    </div>
+
+    <!-- 매점 -->
+    <div class="tc" id="tStore">
+      <div class="fc">
+        <div class="st" style="margin-bottom:10px">🏪 매점 구매 처리</div>
+        <div class="fgrid">
+          <div class="fg"><label class="fl">학생</label><select class="sel" id="storeStu"></select></div>
+          <div class="fg"><label class="fl">상품</label><select class="sel" id="storeItem" onchange="applyItemPrice('storeItem','storePrice','storeTotal','storeQty')"><option value="">-- 상품 선택 --</option></select></div>
+          <div class="fg"><label class="fl">수량</label><input class="fsm" id="storeQty" type="number" min="1" value="1" oninput="calcTotal('storePrice','storeQty','storeTotal')"></div>
+          <div class="fg"><label class="fl">단가</label><input class="fsm" id="storePrice" type="number" readonly placeholder="자동입력"></div>
+          <div class="fg"><label class="fl">합계</label><input class="fsm" id="storeTotal" type="number" readonly placeholder="자동입력"></div>
+        </div>
+        <button class="bsm bor" style="width:100%;padding:11px" onclick="doStore()">🏪 매점 구매 처리</button>
+      </div>
+      <div class="fc">
+        <div class="st" style="margin-bottom:10px">🏪 단체 매점 처리</div>
+        <div class="fgrid">
+          <div class="fg"><label class="fl">상품</label><select class="sel" id="bulkStoreItem" onchange="applyBulkStoreAmt()"><option value="">-- 선택 --</option></select></div>
+          <div class="fg"><label class="fl">금액</label><input class="fsm" id="bulkStoreAmt" type="number" min="1" placeholder="금액"></div>
+        </div>
+        <div class="cl" id="storeCL" style="margin-bottom:10px"></div>
+        <button class="bsm bor" style="width:100%;padding:11px" onclick="doBulkStore()">🏪 선택 학생 매점 차감</button>
+      </div>
+      <div class="fc">
+        <div class="sh"><span class="st">📦 매점 재고 현황</span><button class="bsm bpu" onclick="loadTeacherStore()">🔄</button></div>
+        <div id="storeStockList"></div>
+      </div>
+    </div>
+
+    <!-- 이용권 -->
+    <div class="tc" id="tTicket">
+      <div class="fc">
+        <div class="st" style="margin-bottom:10px">🎟️ 이용권 지급</div>
+        <div class="fgrid">
+          <div class="fg"><label class="fl">학생</label><select class="sel" id="ticketStu"></select></div>
+          <div class="fg"><label class="fl">이용권</label><select class="sel" id="ticketItem" onchange="applyItemPrice('ticketItem','ticketPrice','ticketTotal','ticketQty')"><option value="">-- 선택 --</option></select></div>
+          <div class="fg"><label class="fl">직접 입력</label><input class="fsm" id="ticketCustom" placeholder="직접 입력시"></div>
+          <div class="fg"><label class="fl">금액</label><input class="fsm" id="ticketCustomAmt" type="number" min="0" placeholder="0"></div>
+          <div class="fg"><label class="fl">수량</label><input class="fsm" id="ticketQty" type="number" min="1" value="1" oninput="calcTotal('ticketPrice','ticketQty','ticketTotal')"></div>
+          <div class="fg"><label class="fl">단가</label><input class="fsm" id="ticketPrice" type="number" readonly></div>
+          <div class="fg"><label class="fl">합계</label><input class="fsm" id="ticketTotal" type="number" readonly></div>
+        </div>
+        <button class="bsm bpu" style="width:100%;padding:11px" onclick="doTicket()">🎟️ 이용권 지급</button>
+      </div>
+      <div class="fc">
+        <div class="st" style="margin-bottom:10px">🎟️ 단체 이용권 지급</div>
+        <div class="fgrid">
+          <div class="fg"><label class="fl">이용권</label><select class="sel" id="bulkTicketItem" onchange="applyBulkTicketAmt()"><option value="">-- 선택 --</option></select></div>
+          <div class="fg"><label class="fl">직접 입력</label><input class="fsm" id="bulkTicketCustom" placeholder="직접 입력시"></div>
+          <div class="fg"><label class="fl">금액</label><input class="fsm" id="bulkTicketAmt" type="number" min="1" placeholder="금액"></div>
+        </div>
+        <div class="cl" id="ticketCL" style="margin-bottom:10px"></div>
+        <button class="bsm bpu" style="width:100%;padding:11px" onclick="doBulkTicket()">🎟️ 선택 학생 이용권 지급</button>
+      </div>
+      <!-- 공동구매 -->
+      <div class="fc">
+        <div class="sh">
+          <span class="st">🤝 공동구매 관리</span>
+          <button class="bsm bpu" onclick="toggleGtCreate()">+ 새 공동구매</button>
+        </div>
+        <div id="gtCreateWrap" style="display:none;margin-bottom:14px">
+          <div class="fgrid">
+            <div class="fg"><label class="fl">이름</label><input class="fsm" id="gtName" placeholder="공동구매 이름"></div>
+            <div class="fg"><label class="fl">목표 금액 (별)</label><input class="fsm" id="gtGoal" type="number" min="1" placeholder="1000"></div>
+            <div class="fg"><label class="fl">설명</label><input class="fsm" id="gtDesc" placeholder="설명 (선택)"></div>
+          </div>
+          <button class="bsm bgr" style="width:100%;padding:10px" onclick="doCreateGroupTicket()">공동구매 생성</button>
+        </div>
+        <div id="gtListTeacher"><div class="loading"><div class="spin"></div></div></div>
+      </div>
+    </div>
+
+    <!-- 벌금 -->
+    <div class="tc" id="tFine">
+      <div class="fc">
+        <div class="st" style="margin-bottom:10px">🚨 개인 벌금 부과</div>
+        <div class="fgrid">
+          <div class="fg"><label class="fl">학생</label><select class="sel" id="fineStu"></select></div>
+          <div class="fg"><label class="fl">사유</label><select class="sel" id="fineItem" onchange="applyFineAmt('fineItem','fineAmt')"><option value="">-- 사유 선택 --</option></select></div>
+          <div class="fg"><label class="fl">직접 입력</label><input class="fsm" id="fineCustom" placeholder="직접 입력시"></div>
+          <div class="fg"><label class="fl">금액 (별)</label><input class="fsm" id="fineAmt" type="number" min="1" placeholder="100"></div>
+          <div class="fg"><label class="fl">메모</label><input class="fsm" id="fineMemo" placeholder="메모 (선택)"></div>
+        </div>
+        <button class="bsm bre" style="width:100%;padding:11px" onclick="doFine()">🚨 벌금 부과</button>
+      </div>
+      <div class="fc">
+        <div class="st" style="margin-bottom:10px">🚨 단체 벌금 부과</div>
+        <div class="fgrid">
+          <div class="fg"><label class="fl">사유</label><select class="sel" id="bulkFineItem" onchange="applyFineAmt('bulkFineItem','bulkFineAmt')"><option value="">-- 사유 선택 --</option></select></div>
+          <div class="fg"><label class="fl">직접 입력</label><input class="fsm" id="bulkFineCustom" placeholder="직접 입력시"></div>
+          <div class="fg"><label class="fl">금액 (별)</label><input class="fsm" id="bulkFineAmt" type="number" min="1" placeholder="100"></div>
+        </div>
+        <div class="cl" id="fineCL" style="margin-bottom:10px"></div>
+        <button class="bsm bre" style="width:100%;padding:11px" onclick="doBulkFine()">🚨 선택 학생 벌금 부과</button>
+      </div>
+    </div>
+
+    <!-- 티켓 현황 -->
+    <div class="tc" id="tAllTk">
+      <div class="sh"><span class="st">🎫 전체 티켓 현황</span><button class="bsm bpu" onclick="loadAllTickets()">🔄 새로고침</button></div>
+      <div class="tw"><table>
+        <thead><tr><th>구매일</th><th>번호</th><th>이름</th><th>종류</th><th>항목</th><th>금액</th><th>상태</th><th>사용일</th></tr></thead>
+        <tbody id="allTkTbl"></tbody>
+      </table></div>
+    </div>
+
+    <!-- 거래내역 -->
+    <div class="tc" id="tTxLog">
+      <div class="sh"><span class="st">📋 전체 거래내역</span><button class="bsm bpu" onclick="loadTxLog()">🔄 새로고침</button></div>
+      <div class="tw"><table>
+        <thead><tr><th>날짜</th><th>번호</th><th>이름</th><th>유형</th><th>항목</th><th>금액</th><th>메모</th></tr></thead>
+        <tbody id="txTbl"></tbody>
+      </table></div>
+    </div>
+
+    <!-- 학생관리 -->
+    <div class="tc" id="tStudents">
+      <div class="fc">
+        <div class="st" style="margin-bottom:10px">👤 학생 등록/수정</div>
+        <div class="fgrid">
+          <div class="fg"><label class="fl">번호</label><input class="fsm" id="stuNum" type="number" min="1" placeholder="번호"></div>
+          <div class="fg"><label class="fl">이름</label><input class="fsm" id="stuName" placeholder="홍길동"></div>
+          <div class="fg"><label class="fl">비밀번호</label><input class="fsm" id="stuPw" placeholder="예) 0312 (생일)"></div>
+          <div class="fg"><label class="fl">직업 (쉼표로 여러 개)</label><input class="fsm" id="stuJob" placeholder="예) 수학선생님,반장"></div>
+          <div class="fg"><label class="fl">초기 잔액 (별)</label><input class="fsm" id="stuInitBal" type="number" min="0" placeholder="0"></div>
+        </div>
+        <div style="display:flex;gap:7px">
+          <button class="bsm bpu" style="flex:1;padding:11px" onclick="doSaveStu()">💾 저장</button>
+          <button class="bsm bgy" style="padding:11px" onclick="clearStuForm()">초기화</button>
+        </div>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>번호</th><th>이름</th><th>직업</th><th>주급</th><th>초기잔액</th><th>관리</th></tr></thead>
+        <tbody id="stuTbl"></tbody>
+      </table></div>
+    </div>
+
+    <!-- 설정 -->
+    <div class="tc" id="tSettings">
+      <div class="tabs" style="margin-bottom:12px">
+        <button class="tb active" onclick="switchSetTab('직업',this)">직업/주급</button>
+        <button class="tb" onclick="switchSetTab('매점',this)">매점 상품</button>
+        <button class="tb" onclick="switchSetTab('이용권',this)">이용권</button>
+        <button class="tb" onclick="switchSetTab('벌금',this)">벌금 항목</button>
+        <button class="tb" onclick="switchSetTab('보너스',this)">보너스 항목</button>
+      </div>
+      <div class="fc">
+        <div id="setLabel" class="st" style="margin-bottom:11px">직업 / 주급 설정</div>
+        <div style="display:flex;gap:7px;align-items:flex-end;margin-bottom:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:130px;display:flex;flex-direction:column;gap:3px">
+            <label class="fl">항목명</label><input class="fsm" id="setName" placeholder="항목명">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <label class="fl">금액 (별)</label><input class="fsm" id="setAmt" type="number" min="0" placeholder="금액" style="width:100px">
+          </div>
+          <div id="setLimitWrap" style="display:none;flex-direction:column;gap:3px">
+            <label class="fl">한도 수량 (0=무제한)</label><input class="fsm" id="setLimit" type="number" min="0" placeholder="0" style="width:110px">
+          </div>
+          <button class="bsm bpu" style="height:40px" onclick="doSaveSet()">추가/수정</button>
+          <input type="hidden" id="setNameOrig" value="">
+        </div>
+        <div class="tw" style="box-shadow:none;margin-bottom:0">
+          <table><thead><tr><th>항목명</th><th>금액</th><th id="limitHdrTh" style="display:none">한도</th><th>수정/삭제</th></tr></thead>
+          <tbody id="setTbl"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 구매 확인 모달 -->
+<div class="mo" id="buyModal">
+  <div class="md">
+    <div class="mdt" id="buyMdT">구매 확인</div>
+    <div id="buyMdB"></div>
+    <div class="mdb">
+      <button class="bsm bgy" onclick="closeMo('buyModal')">취소</button>
+      <button class="bsm bgo" id="buyMdOk">⭐ 구매하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 티켓 사용 모달 -->
+<div class="mo" id="useTkModal">
+  <div class="md">
+    <div class="mdt">🎫 티켓 사용</div>
+    <div id="useTkB"></div>
+    <div class="mdb">
+      <button class="bsm bgy" onclick="closeMo('useTkModal')">취소</button>
+      <button class="bsm bre" id="useTkOk">✅ 사용하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 공동구매 참여 모달 -->
+<div class="mo" id="gtJoinModal">
+  <div class="md">
+    <div class="mdt" id="gtJoinTitle">🤝 공동구매 참여</div>
+    <div id="gtJoinBody"></div>
+    <div class="fg" style="margin-top:14px">
+      <label class="fl">참여 금액 (별)</label>
+      <input class="fsm" id="gtJoinAmt" type="number" min="1" placeholder="얼마를 낼까요?">
+    </div>
+    <div class="mdb">
+      <button class="bsm bgy" onclick="closeMo('gtJoinModal')">취소</button>
+      <button class="bsm bgo" id="gtJoinOk">⭐ 참여하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 비밀번호 변경 모달 -->
+<div class="mo" id="cpwModal">
+  <div class="md">
+    <div class="mdt">🔒 비밀번호 변경</div>
+    <div class="fg"><label class="fl">현재 비밀번호</label><input class="fi" id="oldPw" type="password" placeholder="현재 비밀번호"></div>
+    <div class="fg"><label class="fl">새 비밀번호</label><input class="fi" id="newPw" type="password" placeholder="새 비밀번호"></div>
+    <div class="fg"><label class="fl">새 비밀번호 확인</label><input class="fi" id="newPw2" type="password" placeholder="다시 입력"></div>
+    <div class="err" id="cpwErr"></div>
+    <div class="mdb">
+      <button class="bsm bgy" onclick="closeMo('cpwModal')">취소</button>
+      <button class="bsm bpu" onclick="doChangePw()">변경하기</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══ Supabase 설정 ══
+const SUPABASE_URL = 'https://hwjswfkughnfqlgbhhjh.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3anN3Zmt1Z2huZnFsZ2JoaGpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MTQzNDMsImV4cCI6MjA5MDE5MDM0M30.ZMiGQQZnBqk-oI2hBka_IVh2loZksZq5j3amWI3Lox0';
+const TEACHER_PW = '111111';
+const DEFAULT_PW = '0000';
+
+// ══ Supabase API 헬퍼 ══
+async function sb(path, method='GET', body=null){
+  const opts = { method, headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': method==='POST'?'return=representation':'' } };
+  if(body) opts.body = JSON.stringify(body);
+  const r = await fetch(SUPABASE_URL+'/rest/v1/'+path, opts);
+  if(!r.ok){ const e=await r.text(); throw new Error(e); }
+  const t = await r.text();
+  return t ? JSON.parse(t) : [];
+}
+
+// ══ 상태 ══
+let CU=null, allStu=[], allSet=[], curSetType='직업';
+
+// ══ 유틸 ══
+function toast(msg,t=''){const el=document.getElementById('toast');el.textContent=msg;el.className='toast show'+(t?' '+t:'');setTimeout(()=>el.className='toast',2800);}
+function showScr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function closeMo(id){document.getElementById(id).classList.remove('open');}
+function openMo(id){document.getElementById(id).classList.add('open');}
+function parseEmoji(name){const m=name.match(/^(\p{Emoji_Presentation}|\p{Extended_Pictographic})/u);return m?{icon:m[0],label:name.slice(m[0].length).trim()||name}:{icon:'',label:name};}
+function fmtDate(d){return d?String(d).substring(0,10):'-';}
+function now(){return new Date().toISOString();}
+
+function switchLoginTab(r,el){
+  document.querySelectorAll('.ltab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('stuLoginForm').style.display=r==='student'?'':'none';
+  document.getElementById('tchLoginForm').style.display=r==='teacher'?'':'none';
+}
+function switchStuTab(id,el){
+  document.querySelectorAll('#screenStudent .tc').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#screenStudent .tb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');el.classList.add('active');
+  if(id==='stStore')loadStuStore();
+  if(id==='stTicketShop'){loadStuTickets();loadGroupTickets();}
+  if(id==='stMyTickets')loadMyTickets();
+}
+function switchTab(id,el){
+  document.querySelectorAll('#screenTeacher .tc').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#screenTeacher>.cont>.tabs .tb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');el.classList.add('active');
+  if(id==='tDash')loadDash();
+  if(id==='tWeekly')buildWeeklyList();
+  if(id==='tBonus'){buildSels();buildCL('bc','bCL');buildBonusPresets();}
+  if(id==='tStore'){buildSels();loadTeacherStore();buildCL('sc2','storeCL');}
+  if(id==='tTicket'){buildSels();buildCL('tc2','ticketCL');loadGroupTicketsTeacher();}
+  if(id==='tFine'){buildSels();buildCL('fc2','fineCL');}
+  if(id==='tAllTk')loadAllTickets();
+  if(id==='tTxLog')loadTxLog();
+  if(id==='tStudents')loadStuTbl();
+  if(id==='tSettings')loadSet(curSetType);
+}
+function switchSetTab(type,el){
+  document.querySelectorAll('#tSettings .tabs .tb').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');curSetType=type;loadSet(type);
+}
+
+// ══ 로그인 ══
+async function doStuLogin(){
+  const num=document.getElementById('loginNum').value.trim();
+  const pw=document.getElementById('loginPw').value.trim();
+  if(!num||!pw){document.getElementById('loginErr').textContent='번호와 비밀번호를 입력하세요.';return;}
+  document.getElementById('loginErr').textContent='확인 중...';
+  try{
+    const data = await sb(`students?num=eq.${num}&select=*`);
+    if(!data.length){document.getElementById('loginErr').textContent='번호를 찾을 수 없습니다.';return;}
+    const s=data[0];
+    if(String(s.password)!==String(pw)){document.getElementById('loginErr').textContent='비밀번호가 틀렸습니다.';return;}
+    CU={role:'student',num:s.num,name:s.name,job:s.jobs||'',weekly:s.weekly||0};
+    document.getElementById('logoutBtn').style.display='';
+    document.getElementById('changePwBtn').style.display='';
+    showScr('screenStudent');
+    await loadAll();
+    loadStuData();
+  }catch(e){document.getElementById('loginErr').textContent='오류: '+e.message;}
+}
+async function doTchLogin(){
+  const pw=document.getElementById('teacherPw').value.trim();
+  if(pw!==TEACHER_PW){document.getElementById('teacherErr').textContent='비밀번호가 틀렸습니다.';return;}
+  CU={role:'teacher'};
+  document.getElementById('logoutBtn').style.display='';
+  showScr('screenTeacher');
+  await loadAll();loadDash();
+}
+function logout(){
+  CU=null;
+  ['logoutBtn','changePwBtn'].forEach(id=>document.getElementById(id).style.display='none');
+  ['loginNum','loginPw','teacherPw'].forEach(id=>document.getElementById(id).value='');
+  ['loginErr','teacherErr'].forEach(id=>document.getElementById(id).textContent='');
+  showScr('screenLogin');
+}
+
+// ══ 데이터 로드 ══
+async function loadAll(){
+  const [a,b]=await Promise.all([sb('students?select=*&order=num.asc'),sb('settings?select=*&order=id.asc')]);
+  allStu=a;allSet=b;
+}
+
+// ══ 잔액 계산 ══
+async function getBalance(studentNum){
+  const s=allStu.find(x=>String(x.num)===String(studentNum));
+  if(!s)return{ok:false};
+  const txs=await sb(`ledger?student_num=eq.${studentNum}&select=*&order=id.asc`);
+  let balance=s.init_bal||0;
+  const result=txs.map(r=>{
+    const isIn=['주급 지급','보너스 지급'].includes(r.tx_type);
+    if(isIn)balance+=r.amount;else balance-=r.amount;
+    return{date:r.created_at,type:r.tx_type,item:r.item,amount:r.amount,inOut:isIn?'+':'-',balance,memo:r.memo};
+  });
+  return{ok:true,balance,initBal:s.init_bal||0,job:s.jobs||'',weekly:s.weekly||0,name:s.name,txs:result};
+}
+async function getAllBalances(){
+  const ledger=await sb('ledger?select=*');
+  return allStu.map(s=>{
+    const num=String(s.num);
+    let balance=s.init_bal||0,earned=0,spent=0;
+    ledger.filter(r=>String(r.student_num)===num).forEach(r=>{
+      const amt=r.amount||0;
+      if(['주급 지급','보너스 지급'].includes(r.tx_type)){balance+=amt;earned+=amt;}
+      else{balance-=amt;spent+=amt;}
+    });
+    return{num:s.num,name:s.name,job:s.jobs||'',weekly:s.weekly||0,initBal:s.init_bal||0,balance,earned,spent};
+  });
+}
+async function getStoreSales(){
+  const tickets=await sb(`tickets?kind=eq.매점&select=item_name`);
+  const sales={};
+  tickets.forEach(t=>{sales[t.item_name]=(sales[t.item_name]||0)+1;});
+  return sales;
+}
+
+// ══ 학생 화면 ══
+async function loadStuData(){
+  const res=await getBalance(CU.num);
+  if(!res.ok){toast('오류 발생','err');return;}
+  let earn=0,spent=0;
+  res.txs.forEach(tx=>{if(tx.inOut==='+')earn+=tx.amount;else spent+=tx.amount;});
+  document.getElementById('stu-bal').textContent=res.balance.toLocaleString();
+  document.getElementById('stu-job').textContent=res.job||'-';
+  document.getElementById('stu-wk').textContent=(res.weekly||0).toLocaleString();
+  document.getElementById('stu-earn').textContent=earn.toLocaleString()+'별';
+  document.getElementById('stu-spent').textContent=spent.toLocaleString()+'별';
+  // 알림 배너
+  const ledger=await sb(`ledger?student_num=eq.${CU.num}&select=tx_type,created_at`);
+  const ym=new Date().toISOString().substring(0,7);
+  const fineCount=ledger.filter(r=>r.tx_type==='벌금 차감'&&r.created_at.substring(0,7)===ym).length;
+  const bonusCount=ledger.filter(r=>r.tx_type==='보너스 지급').length;
+  const banner=document.getElementById('alertBanner');
+  if(bonusCount>=5){
+    banner.style.cssText='display:block;border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;font-size:1rem;font-weight:700;text-align:center;line-height:1.6;box-shadow:var(--shadow);background:linear-gradient(135deg,#E8F5E9,#C8E6C9);color:var(--green);border:2px solid #A5D6A7';
+    banner.innerHTML='😊😊😊<br>빛나는 행동으로 모범적인 어린이가 되었어요!<br><span style="font-size:.82rem;font-weight:400;color:#555">보너스 '+bonusCount+'회 달성 🌟</span>';
+  } else if(fineCount>=10){
+    banner.style.cssText='display:block;border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;font-size:1rem;font-weight:700;text-align:center;line-height:1.6;box-shadow:var(--shadow);background:linear-gradient(135deg,#FFF3E0,#FFE0B2);color:var(--orange);border:2px solid #FFCC80';
+    banner.innerHTML='😢😢😢<br>벌금을 내지 않도록 과제와 준비물을 잘 챙겨주세요!<br><span style="font-size:.82rem;font-weight:400;color:#555">이번 달 벌금 '+fineCount+'회</span>';
+  } else { banner.style.display='none'; }
+
+  const tb=document.getElementById('stuTxTbl');
+  if(!res.txs.length){tb.innerHTML='<tr><td colspan="6" class="empty">아직 거래 내역이 없어요 ⭐</td></tr>';return;}
+  tb.innerHTML=[...res.txs].reverse().map(tx=>'<tr>'
+    +'<td>'+fmtDate(tx.date)+'</td>'
+    +'<td>'+tx.type+'</td>'
+    +'<td>'+tx.item+'</td>'
+    +'<td class="txin">'+(tx.inOut==='+'?'+'+tx.amount.toLocaleString()+' 별':'')+'</td>'
+    +'<td class="txout">'+(tx.inOut==='-'?'-'+tx.amount.toLocaleString()+' 별':'')+'</td>'
+    +'<td><strong>'+tx.balance.toLocaleString()+' 별</strong></td>'
+    +'</tr>').join('');
+}
+
+async function loadStuStore(){
+  const items=allSet.filter(x=>x.type==='매점');
+  const sales=await getStoreSales();
+  const bal=parseInt(document.getElementById('stu-bal').textContent.replace(/,/g,''))||0;
+  if(!items.length){document.getElementById('stuStoreMg').innerHTML='<div class="empty">매점 상품이 없어요</div>';return;}
+  let html='';
+  for(const x of items){
+    const {icon,label}=parseEmoji(x.name);
+    const sold=sales[x.name]||0;const lim=Number(x.limit_qty)||0;
+    const left=lim>0?lim-sold:null;
+    const soldOut=left!==null&&left<=0;
+    let leftTag='';
+    if(lim>0){const cls=left<=0?'none':left<=2?'low':'';const txt=left<=0?'품절':left<=2?'⚠️ '+left+'개':left+'개';leftTag='<div class="mileft '+cls+'">'+txt+'</div>';}
+    html+='<div class="mi'+(soldOut?' sold-out':'')+'" onclick="'+(soldOut?'':'confirmBuy(\'매점\',\''+x.name.replace(/'/g,"\\'")+'\','+x.amount+')')+'">'
+      +leftTag+'<div class="mic">'+(icon||'🛍️')+'</div>'
+      +'<div class="min">'+label+'</div>'
+      +'<div class="mip">'+(x.amount||0).toLocaleString()+' 별</div></div>';
+  }
+  document.getElementById('stuStoreMg').innerHTML=html;
+}
+async function loadStuTickets(){
+  const items=allSet.filter(x=>x.type==='이용권');
+  if(!items.length){document.getElementById('stuTicketMg').innerHTML='<div class="empty">이용권이 없어요</div>';return;}
+  let html='';
+  items.forEach(x=>{
+    const {icon,label}=parseEmoji(x.name);
+    html+='<div class="mi" onclick="confirmBuy(\'이용권\',\''+x.name.replace(/'/g,"\\'")+'\','+x.amount+')">'
+      +'<div class="mic">'+(icon||'🎟️')+'</div>'
+      +'<div class="min">'+label+'</div>'
+      +'<div class="mip">'+(x.amount||0).toLocaleString()+' 별</div></div>';
+  });
+  document.getElementById('stuTicketMg').innerHTML=html;
+}
+function confirmBuy(kind,name,amount){
+  const bal=parseInt(document.getElementById('stu-bal').textContent.replace(/,/g,''))||0;
+  document.getElementById('buyMdT').textContent=kind==='매점'?'🏪 매점 구매':'🎟️ 이용권 구매';
+  document.getElementById('buyMdB').innerHTML=
+    '<div style="text-align:center;padding:10px 0">'
+    +'<div style="font-size:1.05rem;font-weight:700;margin-bottom:7px">'+name+'</div>'
+    +'<div style="font-size:1.3rem;font-weight:700;color:var(--orange)">'+amount.toLocaleString()+' 별</div>'
+    +'<div style="font-size:.85rem;color:#888;margin-top:7px">구매 즉시 잔액에서 차감돼요<br>현재 잔액: '+bal.toLocaleString()+' 별 → 구매 후: '+(bal-amount).toLocaleString()+' 별</div>'
+    +(bal<amount?'<div style="color:var(--red);font-weight:700;margin-top:7px">⚠️ 잔액이 부족해요!</div>':'')+'</div>';
+  document.getElementById('buyMdOk').onclick=()=>doBuy(kind,name,amount);
+  openMo('buyModal');
+}
+async function doBuy(kind,name,amount){
+  const bal=parseInt(document.getElementById('stu-bal').textContent.replace(/,/g,''))||0;
+  if(bal<amount){toast('잔액이 부족해요!','err');return;}
+  const ticketId='TK-'+Date.now();
+  const txType=kind==='매점'?'매점 구매':'이용권 구매';
+  await sb('tickets','POST',{ticket_id:ticketId,student_num:CU.num,student_name:CU.name,kind,item_name:name,amount,status:'미사용'});
+  await sb('ledger','POST',{student_num:CU.num,student_name:CU.name,tx_type:txType,item:name,amount,by:'학생',memo:'티켓 구매'});
+  closeMo('buyModal');
+  toast(name+' 구매 완료! 티켓이 발급됐어요 🎫','ok');
+  loadStuData();
+}
+async function loadMyTickets(){
+  const el=document.getElementById('myTicketList');
+  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
+  const data=await sb(`tickets?student_num=eq.${CU.num}&select=*&order=created_at.desc`);
+  if(!data.length){el.innerHTML='<div class="empty">티켓이 없어요</div>';return;}
+  let html='<div class="tklist">';
+  data.forEach(tk=>{
+    const used=tk.status==='사용됨';
+    const isStore=tk.kind==='매점';
+    const {icon}=parseEmoji(tk.item_name);
+    html+='<div class="tkc'+(used?' used':'')+(isStore?' store':'')+'">'
+      +'<div class="tkico">'+(icon||'🎫')+'</div>'
+      +'<div class="tkinf">'
+        +'<div class="tknm">'+tk.item_name+'</div>'
+        +'<div class="tkmeta">'+tk.kind+' · '+fmtDate(tk.created_at)+'</div>'
+      +'</div>'
+      +'<div class="tkamt">'+tk.amount.toLocaleString()+' 별</div>'
+      +(used?'<div class="tkused">사용됨<br>'+fmtDate(tk.used_at)+'</div>'
+        :'<button class="tkubtn" onclick="confirmUse(\''+tk.ticket_id+'\',\''+tk.item_name.replace(/'/g,"\\'")+'\','+tk.amount+',\''+tk.kind+'\')">사용하기</button>')
+      +'</div>';
+  });
+  html+='</div>';el.innerHTML=html;
+}
+function confirmUse(id,name,amount,kind){
+  document.getElementById('useTkB').innerHTML=
+    '<div style="text-align:center;padding:10px 0">'
+    +'<div style="font-size:1.1rem;font-weight:700;margin-bottom:7px">'+name+'</div>'
+    +'<div style="font-size:.88rem;color:#888">이 티켓을 사용하면 되돌릴 수 없어요.</div></div>';
+  document.getElementById('useTkOk').onclick=()=>doUseTicket(id);
+  openMo('useTkModal');
+}
+async function doUseTicket(id){
+  await sb(`tickets?ticket_id=eq.${id}`,'PATCH',{status:'사용됨',used_at:now()});
+  closeMo('useTkModal');toast('티켓 사용 완료! ✅','ok');loadMyTickets();
+}
+
+// ══ 공동구매 (학생) ══
+async function loadGroupTickets(){
+  const el=document.getElementById('gtList');
+  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
+  const gts=await sb('group_tickets?select=*&order=created_at.desc');
+  const parts=await sb('group_ticket_participants?select=*');
+  if(!gts.length){el.innerHTML='<div class="empty">진행 중인 공동구매가 없어요</div>';return;}
+  let html='';
+  for(const gt of gts){
+    const total=parts.filter(p=>p.group_id===gt.id).reduce((s,p)=>s+p.amount,0);
+    const pct=gt.goal>0?Math.min(100,Math.round(total/gt.goal*100)):0;
+    const done=total>=gt.goal;
+    html+='<div style="background:#fff;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:12px;border:2px solid '+(done?'var(--gold)':'#eee')+'">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'
+        +'<strong>'+gt.name+'</strong>'
+        +'<span style="font-size:.78rem;color:var(--purple);font-weight:700;background:#eeeeff;padding:2px 8px;border-radius:8px">'+gt.status+'</span>'
+      +'</div>'
+      +(gt.description?'<div style="font-size:.83rem;color:#888;margin-bottom:8px">'+gt.description+'</div>':'')
+      +'<div style="background:#f0f0f0;border-radius:20px;height:10px;overflow:hidden;margin-bottom:6px">'
+        +'<div style="background:'+(done?'var(--gold)':'var(--purple)')+';height:100%;width:'+pct+'%;border-radius:20px"></div>'
+      +'</div>'
+      +'<div style="display:flex;justify-content:space-between;font-size:.85rem">'
+        +'<span style="color:var(--purple);font-weight:700">'+total.toLocaleString()+' 별 모였어요</span>'
+        +'<span style="color:#888">목표: '+gt.goal.toLocaleString()+' 별 ('+pct+'%)</span>'
+      +'</div>'
+      +(gt.status==='진행중'?'<button class="bsm bgo" style="width:100%;margin-top:10px;padding:8px" onclick="openGtJoin(\''+gt.id+'\',\''+gt.name+'\','+gt.goal+','+total+')">🤝 참여하기</button>':'')
+      +'</div>';
+  }
+  el.innerHTML=html;
+}
+function openGtJoin(gid,name,goal,total){
+  const bal=parseInt(document.getElementById('stu-bal').textContent.replace(/,/g,''))||0;
+  document.getElementById('gtJoinTitle').textContent='🤝 '+name+' 참여하기';
+  document.getElementById('gtJoinBody').innerHTML=
+    '<div style="background:#f5f5f5;border-radius:8px;padding:10px 14px;margin-bottom:10px;text-align:center">'
+    +'<div style="font-size:.85rem;color:#888">목표 '+Number(goal).toLocaleString()+' 별 중 현재</div>'
+    +'<div style="font-size:1.2rem;font-weight:700;color:var(--purple)">'+Number(total).toLocaleString()+' 별 모였어요</div>'
+    +'</div>'
+    +'<div style="font-size:.85rem;color:#888;margin-bottom:6px">내 현재 잔액: <strong>'+bal.toLocaleString()+' 별</strong></div>';
+  document.getElementById('gtJoinAmt').value='';
+  document.getElementById('gtJoinOk').onclick=()=>doJoinGt(gid,bal);
+  openMo('gtJoinModal');
+}
+async function doJoinGt(gid,bal){
+  const amt=parseInt(document.getElementById('gtJoinAmt').value)||0;
+  if(!amt||amt<1){toast('금액을 입력하세요.','err');return;}
+  if(amt>bal){toast('잔액이 부족해요!','err');return;}
+  const gt=await sb(`group_tickets?id=eq.${gid}&select=name`);
+  const gName=gt.length?gt[0].name:'공동구매';
+  await sb('group_ticket_participants','POST',{group_id:gid,student_num:CU.num,student_name:CU.name,amount:amt});
+  await sb('ledger','POST',{student_num:CU.num,student_name:CU.name,tx_type:'공동구매 참여',item:gName,amount:amt,by:'학생',memo:'공동구매'});
+  closeMo('gtJoinModal');
+  toast('공동구매에 '+amt.toLocaleString()+'별 참여 완료! 🤝','ok');
+  loadStuData();loadGroupTickets();
+}
+
+// ══ 선생님: 전체 현황 ══
+async function loadDash(){
+  document.getElementById('dashTbl').innerHTML='<tr><td colspan="8" class="loading"><div class="spin"></div></td></tr>';
+  const data=await getAllBalances();
+  const sorted=[...data].sort((a,b)=>b.balance-a.balance);
+  let html='';
+  sorted.forEach((s,i)=>{
+    const rank=i+1;
+    const rc=rank===1?'r1':rank===2?'r2':rank===3?'r3':'';
+    html+='<tr class="'+rc+'">'
+      +'<td><strong>'+(rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':rank+'위')+'</strong></td>'
+      +'<td>'+s.num+'</td><td>'+s.name+'</td>'
+      +'<td><span style="font-size:.79rem;background:var(--lbg);padding:2px 7px;border-radius:7px">'+(s.job||'-')+'</span></td>'
+      +'<td>'+s.initBal.toLocaleString()+'</td>'
+      +'<td class="txin">+'+s.earned.toLocaleString()+'</td>'
+      +'<td class="txout">-'+s.spent.toLocaleString()+'</td>'
+      +'<td><strong style="color:var(--orange);font-size:1rem">'+s.balance.toLocaleString()+' ⭐</strong></td>'
+      +'</tr>';
+  });
+  document.getElementById('dashTbl').innerHTML=html||'<tr><td colspan="8" class="empty">학생이 없어요</td></tr>';
+}
+
+// ══ 선생님: 주급 ══
+function buildWeeklyList(){
+  let html='';
+  allStu.forEach((s,i)=>{
+    const jobs=allSet.filter(x=>x.type==='직업');
+    const curJobs=s.jobs?s.jobs.split(',').map(j=>j.trim()).filter(j=>j):[];
+    const weekly=curJobs.reduce((sum,j)=>{const f=jobs.find(x=>x.name===j);return sum+(f?f.amount:0);},0)||s.weekly||0;
+    html+='<label class="ci" id="wci-'+i+'">'
+      +'<input type="checkbox" class="wc" data-idx="'+i+'" onchange="this.closest(\'.ci\').classList.toggle(\'ck\',this.checked);updWInfo()">'
+      +'<span class="cn">'+s.num+'번 '+s.name+'</span>'
+      +'<span class="cs2">'+(s.jobs||'-')+'</span>'
+      +'<span class="ca">'+weekly.toLocaleString()+'별</span>'
+      +'</label>';
+  });
+  document.getElementById('wCL').innerHTML=html;
+  updWInfo();
+}
+function updWInfo(){
+  const cs=document.querySelectorAll('.wc:checked');
+  let t=0;
+  cs.forEach(c=>{
+    const s=allStu[c.dataset.idx];
+    const jobs=allSet.filter(x=>x.type==='직업');
+    const curJobs=s.jobs?s.jobs.split(',').map(j=>j.trim()).filter(j=>j):[];
+    t+=curJobs.reduce((sum,j)=>{const f=jobs.find(x=>x.name===j);return sum+(f?f.amount:0);},0)||s.weekly||0;
+  });
+  document.getElementById('wInfo').textContent=cs.length?cs.length+'명 선택 / 총 '+t.toLocaleString()+' 별':'';
+}
+async function doWeeklyPay(){
+  const cs=document.querySelectorAll('.wc:checked');if(!cs.length){toast('학생을 선택하세요.','err');return;}
+  const jobs=allSet.filter(x=>x.type==='직업');
+  const promises=[];
+  cs.forEach(c=>{
+    const s=allStu[c.dataset.idx];
+    const curJobs=s.jobs?s.jobs.split(',').map(j=>j.trim()).filter(j=>j):[];
+    const amount=curJobs.reduce((sum,j)=>{const f=jobs.find(x=>x.name===j);return sum+(f?f.amount:0);},0)||s.weekly||0;
+    promises.push(sb('ledger','POST',{student_num:s.num,student_name:s.name,tx_type:'주급 지급',item:'주급',amount,by:'교사',memo:''}));
+  });
+  await Promise.all(promises);
+  toast(cs.length+'명 주급 지급 완료! ⭐','ok');chkAll('wc',false);
+}
+
+// ══ 공통 셀렉트/체크리스트 ══
+function buildSels(){
+  const so=allStu.map(s=>'<option value="'+s.num+'">'+s.num+'번 '+s.name+'</option>').join('');
+  ['bonusStu','storeStu','ticketStu','fineStu'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=so;});
+  const stOpts='<option value="">-- 상품 선택 --</option>'+allSet.filter(x=>x.type==='매점').map(x=>'<option value="'+x.name+'|'+x.amount+'">'+x.name+' ('+x.amount+'별)</option>').join('');
+  ['storeItem','bulkStoreItem'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=stOpts;});
+  const tkOpts='<option value="">-- 이용권 선택 --</option>'+allSet.filter(x=>x.type==='이용권').map(x=>'<option value="'+x.name+'|'+x.amount+'">'+x.name+' ('+x.amount+'별)</option>').join('');
+  ['ticketItem','bulkTicketItem'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=tkOpts;});
+  const fnOpts='<option value="">-- 사유 선택 --</option>'+allSet.filter(x=>x.type==='벌금').map(x=>'<option value="'+x.name+'|'+x.amount+'">'+x.name+' ('+x.amount+'별)</option>').join('');
+  ['fineItem','bulkFineItem'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=fnOpts;});
+}
+function buildBonusPresets(){
+  const opts='<option value="">-- 자주 쓰는 항목 --</option>'+allSet.filter(x=>x.type==='보너스').map(x=>'<option value="'+x.name+'|'+x.amount+'">'+x.name+' ('+x.amount+'별)</option>').join('');
+  ['bonusPreset','bulkBonusPreset'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=opts;});
+}
+function buildCL(cls,cid){
+  const el=document.getElementById(cid);if(!el)return;
+  let html='';
+  allStu.forEach((s,i)=>{
+    html+='<label class="ci">'
+      +'<input type="checkbox" class="'+cls+'" data-idx="'+i+'" onchange="this.closest(\'.ci\').classList.toggle(\'ck\',this.checked)">'
+      +'<span class="cn">'+s.num+'번 '+s.name+'</span>'
+      +'<span class="cs2">'+(s.jobs||'-')+'</span>'
+      +'</label>';
+  });
+  el.innerHTML=html;
+}
+function chkAll(cls,v){
+  document.querySelectorAll('.'+cls).forEach(c=>{c.checked=v;c.closest('.ci').classList.toggle('ck',v);});
+  if(cls==='wc')updWInfo();
+}
+function applyPreset(si,ni,ai){const v=document.getElementById(si).value;if(!v)return;const[n,a]=v.split('|');document.getElementById(ni).value=n;document.getElementById(ai).value=a;}
+function applyItemPrice(si,pi,ti,qi){const v=document.getElementById(si).value;if(!v){document.getElementById(pi).value='';document.getElementById(ti).value='';return;}document.getElementById(pi).value=parseInt(v.split('|')[1])||0;calcTotal(pi,qi,ti);}
+function calcTotal(pi,qi,ti){const p=parseInt(document.getElementById(pi).value)||0,q=parseInt(document.getElementById(qi).value)||0;document.getElementById(ti).value=p*q;}
+function applyFineAmt(si,ai){const v=document.getElementById(si).value;document.getElementById(ai).value=v?parseInt(v.split('|')[1])||0:'';}
+function applyBulkStoreAmt(){const v=document.getElementById('bulkStoreItem').value;document.getElementById('bulkStoreAmt').value=v?parseInt(v.split('|')[1])||0:'';}
+function applyBulkTicketAmt(){const v=document.getElementById('bulkTicketItem').value;document.getElementById('bulkTicketAmt').value=v?parseInt(v.split('|')[1])||0:'';}
+
+// ══ 보너스 ══
+async function doBonus(){
+  const num=document.getElementById('bonusStu').value;
+  const item=document.getElementById('bonusItem').value.trim();
+  const amt=parseInt(document.getElementById('bonusAmt').value)||0;
+  const memo=document.getElementById('bonusMemo').value.trim();
+  if(!item||!amt){toast('항목과 금액을 입력하세요.','err');return;}
+  const s=allStu.find(x=>String(x.num)===String(num));
+  await sb('ledger','POST',{student_num:num,student_name:s?s.name:'',tx_type:'보너스 지급',item,amount:amt,by:'교사',memo});
+  toast((s?s.name:'')+' '+item+' '+amt.toLocaleString()+'별 보너스! 🌟','ok');
+  ['bonusItem','bonusAmt','bonusMemo'].forEach(id=>document.getElementById(id).value='');
+}
+async function doBulkBonus(){
+  const item=document.getElementById('bulkBonusItem').value.trim();
+  const amt=parseInt(document.getElementById('bulkBonusAmt').value)||0;
+  const cs=document.querySelectorAll('.bc:checked');
+  if(!item||!amt){toast('항목과 금액을 입력하세요.','err');return;}
+  if(!cs.length){toast('학생을 선택하세요.','err');return;}
+  const ps=[];cs.forEach(c=>{const s=allStu[c.dataset.idx];ps.push(sb('ledger','POST',{student_num:s.num,student_name:s.name,tx_type:'보너스 지급',item,amount:amt,by:'교사',memo:''}));});
+  await Promise.all(ps);toast(cs.length+'명 보너스 지급 완료! 🌟','ok');chkAll('bc',false);
+}
+
+// ══ 매점 ══
+async function doStore(){
+  const num=document.getElementById('storeStu').value;
+  const v=document.getElementById('storeItem').value;
+  const qty=parseInt(document.getElementById('storeQty').value)||1;
+  if(!v){toast('상품을 선택하세요.','err');return;}
+  const[name,ps]=v.split('|');const total=(parseInt(ps)||0)*qty;
+  const s=allStu.find(x=>String(x.num)===String(num));
+  await sb('ledger','POST',{student_num:num,student_name:s?s.name:'',tx_type:'매점 구매',item:name+' x'+qty,amount:total,by:'교사',memo:''});
+  toast((s?s.name:'')+' '+name+' '+qty+'개 ('+total.toLocaleString()+'별 차감)','ok');
+  ['storeItem','storePrice','storeTotal'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('storeQty').value=1;
+}
+async function doBulkStore(){
+  const v=document.getElementById('bulkStoreItem').value;
+  const amt=parseInt(document.getElementById('bulkStoreAmt').value)||0;
+  const cs=document.querySelectorAll('.sc2:checked');
+  if(!v||!amt){toast('상품과 금액을 확인하세요.','err');return;}
+  if(!cs.length){toast('학생을 선택하세요.','err');return;}
+  const name=v.split('|')[0];
+  const ps=[];cs.forEach(c=>{const s=allStu[c.dataset.idx];ps.push(sb('ledger','POST',{student_num:s.num,student_name:s.name,tx_type:'매점 구매',item:name,amount:amt,by:'교사',memo:''}));});
+  await Promise.all(ps);toast(cs.length+'명 매점 차감 완료','ok');chkAll('sc2',false);loadTeacherStore();
+}
+async function loadTeacherStore(){
+  const el=document.getElementById('storeStockList');
+  const items=allSet.filter(x=>x.type==='매점');
+  const sales=await getStoreSales();
+  if(!items.length){el.innerHTML='<div class="empty">매점 상품이 없어요</div>';return;}
+  let html='<div class="tw"><table><thead><tr><th>상품</th><th>단가</th><th>한도</th><th>판매량</th><th>남은 수량</th></tr></thead><tbody>';
+  items.forEach(x=>{
+    const sold=sales[x.name]||0;const lim=Number(x.limit_qty)||0;
+    const left=lim>0?lim-sold:'∞';
+    html+='<tr><td>'+x.name+'</td><td>'+x.amount+'별</td><td>'+(lim||'무제한')+'</td><td>'+sold+'</td><td><strong>'+(left==='∞'?'∞':(left<=0?'<span style="color:var(--red)">품절</span>':left))+'</strong></td></tr>';
+  });
+  html+='</tbody></table></div>';el.innerHTML=html;
+}
+
+// ══ 이용권 ══
+async function doTicket(){
+  const num=document.getElementById('ticketStu').value;
+  const v=document.getElementById('ticketItem').value;
+  const custom=document.getElementById('ticketCustom').value.trim();
+  const customAmt=parseInt(document.getElementById('ticketCustomAmt').value)||0;
+  const qty=parseInt(document.getElementById('ticketQty').value)||1;
+  let name,price;
+  if(custom){name=custom;price=customAmt;}
+  else if(v){const[n,p]=v.split('|');name=n;price=parseInt(p)||0;}
+  else{toast('이용권을 선택하거나 직접 입력하세요.','err');return;}
+  const total=price*qty;
+  const s=allStu.find(x=>String(x.num)===String(num));
+  await sb('ledger','POST',{student_num:num,student_name:s?s.name:'',tx_type:'이용권 구매',item:name+' x'+qty,amount:total,by:'교사',memo:''});
+  toast((s?s.name:'')+' '+name+' ('+total.toLocaleString()+'별 차감)','ok');
+}
+async function doBulkTicket(){
+  const v=document.getElementById('bulkTicketItem').value;
+  const custom=document.getElementById('bulkTicketCustom').value.trim();
+  const amt=parseInt(document.getElementById('bulkTicketAmt').value)||0;
+  const cs=document.querySelectorAll('.tc2:checked');
+  const name=custom?custom:(v?v.split('|')[0]:'');
+  if(!name){toast('이용권을 선택하거나 직접 입력하세요.','err');return;}
+  if(!amt){toast('금액을 입력하세요.','err');return;}
+  if(!cs.length){toast('학생을 선택하세요.','err');return;}
+  const ps=[];cs.forEach(c=>{const s=allStu[c.dataset.idx];ps.push(sb('ledger','POST',{student_num:s.num,student_name:s.name,tx_type:'이용권 구매',item:name,amount:amt,by:'교사',memo:''}));});
+  await Promise.all(ps);toast(cs.length+'명 이용권 차감 완료','ok');chkAll('tc2',false);
+}
+
+// ══ 벌금 ══
+async function doFine(){
+  const num=document.getElementById('fineStu').value;
+  const v=document.getElementById('fineItem').value;
+  const custom=document.getElementById('fineCustom').value.trim();
+  const amt=parseInt(document.getElementById('fineAmt').value)||0;
+  const memo=document.getElementById('fineMemo').value.trim();
+  if(!amt){toast('금액을 입력하세요.','err');return;}
+  const name=custom?custom:(v?v.split('|')[0]:'기타 벌금');
+  const s=allStu.find(x=>String(x.num)===String(num));
+  await sb('ledger','POST',{student_num:num,student_name:s?s.name:'',tx_type:'벌금 차감',item:name,amount:amt,by:'교사',memo});
+  toast((s?s.name:'')+' '+name+' '+amt.toLocaleString()+'별 차감','ok');
+  ['fineItem','fineCustom','fineAmt','fineMemo'].forEach(id=>document.getElementById(id).value='');
+}
+async function doBulkFine(){
+  const v=document.getElementById('bulkFineItem').value;
+  const custom=document.getElementById('bulkFineCustom').value.trim();
+  const amt=parseInt(document.getElementById('bulkFineAmt').value)||0;
+  const cs=document.querySelectorAll('.fc2:checked');
+  const name=custom?custom:(v?v.split('|')[0]:'');
+  if(!name){toast('사유를 선택하거나 직접 입력하세요.','err');return;}
+  if(!amt){toast('금액을 입력하세요.','err');return;}
+  if(!cs.length){toast('학생을 선택하세요.','err');return;}
+  const ps=[];cs.forEach(c=>{const s=allStu[c.dataset.idx];ps.push(sb('ledger','POST',{student_num:s.num,student_name:s.name,tx_type:'벌금 차감',item:name,amount:amt,by:'교사',memo:''}));});
+  await Promise.all(ps);toast(cs.length+'명 벌금 차감 완료','ok');chkAll('fc2',false);
+}
+
+// ══ 티켓/거래내역 ══
+async function loadAllTickets(){
+  document.getElementById('allTkTbl').innerHTML='<tr><td colspan="8" class="loading"><div class="spin"></div></td></tr>';
+  const data=await sb('tickets?select=*&order=created_at.desc');
+  if(!data.length){document.getElementById('allTkTbl').innerHTML='<tr><td colspan="8" class="empty">티켓 없음</td></tr>';return;}
+  document.getElementById('allTkTbl').innerHTML=data.map(tk=>'<tr>'
+    +'<td>'+fmtDate(tk.created_at)+'</td><td>'+tk.student_num+'</td><td>'+tk.student_name+'</td>'
+    +'<td>'+tk.kind+'</td><td>'+tk.item_name+'</td>'
+    +'<td style="font-weight:700;color:var(--orange)">'+tk.amount.toLocaleString()+'별</td>'
+    +'<td><span style="color:'+(tk.status==='사용됨'?'#aaa':'var(--green)')+';font-weight:600">'+tk.status+'</span></td>'
+    +'<td>'+fmtDate(tk.used_at)+'</td>'
+    +'</tr>').join('');
+}
+async function loadTxLog(){
+  document.getElementById('txTbl').innerHTML='<tr><td colspan="7" class="loading"><div class="spin"></div></td></tr>';
+  const data=await sb('ledger?select=*&order=id.desc');
+  if(!data.length){document.getElementById('txTbl').innerHTML='<tr><td colspan="7" class="empty">거래 없음</td></tr>';return;}
+  const col={'주급 지급':'var(--green)','보너스 지급':'#1565C0','매점 구매':'var(--orange)','이용권 구매':'var(--purple)','벌금 차감':'var(--red)'};
+  const isIn=t=>['주급 지급','보너스 지급'].includes(t);
+  document.getElementById('txTbl').innerHTML=data.map(tx=>'<tr>'
+    +'<td>'+fmtDate(tx.created_at)+'</td><td>'+tx.student_num+'</td><td>'+tx.student_name+'</td>'
+    +'<td><span style="color:'+(col[tx.tx_type]||'#555')+';font-weight:600">'+tx.tx_type+'</span></td>'
+    +'<td>'+tx.item+'</td>'
+    +'<td style="font-weight:700;color:'+(isIn(tx.tx_type)?'var(--green)':'var(--red)')+'">'+( isIn(tx.tx_type)?'+':'-')+tx.amount.toLocaleString()+'별</td>'
+    +'<td class="l">'+(tx.memo||'')+'</td>'
+    +'</tr>').join('');
+}
+
+// ══ 학생 관리 ══
+async function loadStuTbl(){
+  const sorted=[...allStu].sort((a,b)=>Number(a.num)-Number(b.num));
+  document.getElementById('stuTbl').innerHTML=sorted.map(s=>'<tr>'
+    +'<td>'+s.num+'</td><td>'+s.name+'</td>'
+    +'<td><span style="font-size:.79rem;background:var(--lbg);padding:2px 7px;border-radius:7px">'+(s.jobs||'-')+'</span></td>'
+    +'<td>'+(s.weekly||0).toLocaleString()+'별</td><td>'+(s.init_bal||0).toLocaleString()+'별</td>'
+    +'<td>'
+      +'<button class="bsm bpu" style="padding:4px 9px;font-size:.77rem" onclick=\'editStu('+JSON.stringify(s)+')\'>수정</button>'
+      +'<button class="bsm" style="background:#bbb;color:#fff;padding:4px 9px;font-size:.77rem;margin-left:3px" onclick="doResetPw(\''+s.num+'\',\''+s.name+'\')">PW초기화</button>'
+      +'<button class="bsm bre" style="padding:4px 9px;font-size:.77rem;margin-left:3px" onclick="doDelStu(\''+s.num+'\',\''+s.name+'\')">삭제</button>'
+    +'</td></tr>').join('')||'<tr><td colspan="6" class="empty">학생 없음</td></tr>';
+}
+function editStu(s){
+  document.getElementById('stuNum').value=s.num;
+  document.getElementById('stuName').value=s.name;
+  document.getElementById('stuPw').value=s.password||'';
+  document.getElementById('stuJob').value=s.jobs||'';
+  document.getElementById('stuInitBal').value=s.init_bal||0;
+}
+function clearStuForm(){['stuNum','stuName','stuPw','stuJob','stuInitBal'].forEach(id=>document.getElementById(id).value='');}
+async function doSaveStu(){
+  const num=document.getElementById('stuNum').value.trim();
+  const name=document.getElementById('stuName').value.trim();
+  const pw=document.getElementById('stuPw').value.trim()||DEFAULT_PW;
+  const jobs=document.getElementById('stuJob').value.trim();
+  const initBal=parseInt(document.getElementById('stuInitBal').value)||0;
+  if(!num||!name){toast('번호와 이름은 필수입니다.','err');return;}
+  // 직업별 주급 계산
+  const jobList=jobs?jobs.split(',').map(j=>j.trim()).filter(j=>j):[];
+  const weekly=jobList.reduce((sum,j)=>{const f=allSet.find(x=>x.type==='직업'&&x.name===j);return sum+(f?f.amount:0);},0);
+  const existing=await sb(`students?num=eq.${num}&select=num`);
+  if(existing.length){
+    await sb(`students?num=eq.${num}`,'PATCH',{name,password:pw,jobs,weekly,init_bal:initBal});
+  } else {
+    await sb('students','POST',{num,name,password:pw,jobs,weekly,init_bal:initBal});
+  }
+  toast(name+' 저장 완료!','ok');clearStuForm();
+  await loadAll();loadStuTbl();
+}
+async function doResetPw(num,name){
+  if(!confirm(name+'의 비밀번호를 '+DEFAULT_PW+'으로 초기화할까요?'))return;
+  await sb(`students?num=eq.${num}`,'PATCH',{password:DEFAULT_PW});
+  toast(name+' 비밀번호 초기화 완료 ('+DEFAULT_PW+')','ok');
+}
+async function doDelStu(num,name){
+  if(!confirm(name+' 학생을 삭제할까요?'))return;
+  await sb(`students?num=eq.${num}`,'DELETE');
+  toast(name+' 삭제 완료','ok');
+  await loadAll();loadStuTbl();
+}
+
+// ══ 비밀번호 변경 ══
+function openChangePw(){openMo('cpwModal');}
+async function doChangePw(){
+  const oldPw=document.getElementById('oldPw').value.trim();
+  const newPw=document.getElementById('newPw').value.trim();
+  const newPw2=document.getElementById('newPw2').value.trim();
+  if(!oldPw||!newPw){document.getElementById('cpwErr').textContent='비밀번호를 입력하세요.';return;}
+  if(newPw!==newPw2){document.getElementById('cpwErr').textContent='새 비밀번호가 일치하지 않아요.';return;}
+  const data=await sb(`students?num=eq.${CU.num}&select=password`);
+  if(!data.length||String(data[0].password)!==String(oldPw)){document.getElementById('cpwErr').textContent='현재 비밀번호가 틀렸습니다.';return;}
+  await sb(`students?num=eq.${CU.num}`,'PATCH',{password:newPw});
+  closeMo('cpwModal');toast('비밀번호 변경 완료!','ok');
+  ['oldPw','newPw','newPw2'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cpwErr').textContent='';
+}
+
+// ══ 설정 ══
+function loadSet(type){
+  curSetType=type;
+  const labels={'직업':'직업 / 주급 설정','매점':'매점 상품 설정','이용권':'이용권 설정','벌금':'벌금 항목 설정','보너스':'보너스 항목 설정'};
+  document.getElementById('setLabel').textContent=labels[type]||type;
+  const showLimit=['매점','이용권'].includes(type);
+  const lw=document.getElementById('setLimitWrap');
+  lw.style.display=showLimit?'flex':'none';
+  const lh=document.getElementById('limitHdrTh');
+  lh.style.display=showLimit?'':'none';
+  const data=allSet.filter(x=>x.type===type);
+  let rows='';
+  data.forEach(x=>{
+    rows+='<tr>'
+      +'<td class="l">'+x.name+'</td>'
+      +'<td>'+x.amount.toLocaleString()+' 별</td>'
+      +(showLimit?'<td>'+(Number(x.limit_qty)>0?Number(x.limit_qty)+'장':'무제한')+'</td>':'')
+      +'<td>'
+        +'<button class="bsm bpu" style="padding:3px 9px;font-size:.77rem" onclick="startEditSet(\''+type+'\',\''+encodeURIComponent(x.name)+'\','+x.amount+','+(x.limit_qty||0)+')">수정</button>'
+        +'<button class="bsm bre" style="padding:3px 9px;font-size:.77rem;margin-left:3px" onclick="doDelSet(\''+type+'\',\''+encodeURIComponent(x.name)+'\')">삭제</button>'
+      +'</td></tr>';
+  });
+  document.getElementById('setTbl').innerHTML=rows||'<tr><td colspan="4" class="empty">항목 없음</td></tr>';
+}
+function startEditSet(type,ne,amount,limit){
+  const name=decodeURIComponent(ne);
+  document.getElementById('setName').value=name;
+  document.getElementById('setAmt').value=amount;
+  document.getElementById('setLimit').value=limit||0;
+  document.getElementById('setNameOrig').value=name;
+}
+async function doSaveSet(){
+  const name=document.getElementById('setName').value.trim();
+  const amount=parseInt(document.getElementById('setAmt').value)||0;
+  const limit=parseInt(document.getElementById('setLimit').value)||0;
+  const orig=document.getElementById('setNameOrig').value;
+  if(!name){toast('항목명을 입력하세요.','err');return;}
+  if(orig&&orig!==name){
+    await sb(`settings?type=eq.${curSetType}&name=eq.${encodeURIComponent(orig)}`,'DELETE');
+    await sb('settings','POST',{type:curSetType,name,amount,limit_qty:limit});
+  } else {
+    const ex=await sb(`settings?type=eq.${curSetType}&name=eq.${encodeURIComponent(name)}&select=id`);
+    if(ex.length){ await sb(`settings?type=eq.${curSetType}&name=eq.${encodeURIComponent(name)}`,'PATCH',{amount,limit_qty:limit}); }
+    else { await sb('settings','POST',{type:curSetType,name,amount,limit_qty:limit}); }
+  }
+  toast(name+' 저장 완료!','ok');
+  ['setName','setAmt','setLimit'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('setNameOrig').value='';
+  await loadAll();loadSet(curSetType);
+}
+async function doDelSet(type,ne){
+  const name=decodeURIComponent(ne);
+  if(!confirm(name+' 항목을 삭제할까요?'))return;
+  await sb(`settings?type=eq.${type}&name=eq.${encodeURIComponent(name)}`,'DELETE');
+  toast(name+' 삭제 완료','ok');
+  await loadAll();loadSet(curSetType);
+}
+
+// ══ 공동구매 (선생님) ══
+function toggleGtCreate(){
+  const w=document.getElementById('gtCreateWrap');
+  w.style.display=w.style.display==='none'?'block':'none';
+}
+async function doCreateGroupTicket(){
+  const name=document.getElementById('gtName').value.trim();
+  const goal=parseInt(document.getElementById('gtGoal').value)||0;
+  const desc=document.getElementById('gtDesc').value.trim();
+  if(!name||!goal){toast('이름과 목표 금액을 입력하세요.','err');return;}
+  const id='GT-'+Date.now();
+  await sb('group_tickets','POST',{id,name,goal,description:desc,status:'진행중'});
+  toast(name+' 공동구매 생성 완료!','ok');
+  ['gtName','gtGoal','gtDesc'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('gtCreateWrap').style.display='none';
+  loadGroupTicketsTeacher();
+}
+async function loadGroupTicketsTeacher(){
+  const el=document.getElementById('gtListTeacher');
+  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
+  const gts=await sb('group_tickets?select=*&order=created_at.desc');
+  const parts=await sb('group_ticket_participants?select=*');
+  if(!gts.length){el.innerHTML='<div class="empty">공동구매가 없어요</div>';return;}
+  let html='';
+  for(const gt of gts){
+    const myParts=parts.filter(p=>p.group_id===gt.id);
+    const total=myParts.reduce((s,p)=>s+p.amount,0);
+    const pct=gt.goal>0?Math.min(100,Math.round(total/gt.goal*100)):0;
+    const done=total>=gt.goal;
+    html+='<div style="background:#fff;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:12px;border:2px solid '+(done?'var(--gold)':'#eee')+'">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'
+        +'<strong>'+gt.name+'</strong>'
+        +'<span style="font-size:.78rem;color:var(--purple);font-weight:700">'+gt.status+'</span>'
+      +'</div>'
+      +'<div style="background:#f0f0f0;border-radius:20px;height:10px;overflow:hidden;margin-bottom:6px">'
+        +'<div style="background:'+(done?'var(--gold)':'var(--purple)')+';height:100%;width:'+pct+'%;border-radius:20px"></div>'
+      +'</div>'
+      +'<div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:8px">'
+        +'<span style="color:var(--purple);font-weight:700">'+total.toLocaleString()+' 별 / '+gt.goal.toLocaleString()+' 별 ('+pct+'%)</span>'
+        +'<span style="color:#888">'+myParts.length+'명 참여</span>'
+      +'</div>'
+      +'<div style="display:flex;gap:6px">'
+        +(gt.status==='진행중'?'<button class="bsm bgr" style="padding:3px 9px;font-size:.77rem" onclick="doUpdateGtStatus(\''+gt.id+'\',\'완료\')">완료 처리</button>':'')
+        +'<button class="bsm bre" style="padding:3px 9px;font-size:.77rem" onclick="doDeleteGt(\''+gt.id+'\')">삭제</button>'
+      +'</div>'
+    +'</div>';
+  }
+  el.innerHTML=html;
+}
+async function doUpdateGtStatus(gid,status){
+  await sb(`group_tickets?id=eq.${gid}`,'PATCH',{status});
+  toast('상태 변경 완료','ok');loadGroupTicketsTeacher();
+}
+async function doDeleteGt(gid){
+  if(!confirm('공동구매를 삭제할까요?'))return;
+  await sb(`group_tickets?id=eq.${gid}`,'DELETE');
+  await sb(`group_ticket_participants?group_id=eq.${gid}`,'DELETE');
+  toast('삭제 완료','ok');loadGroupTicketsTeacher();
+}
+
+// ══ 초기화 ══
+window.onload=async()=>{await loadAll();};
+</script>
+</body>
+</html>
